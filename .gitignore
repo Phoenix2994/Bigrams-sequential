@@ -1,0 +1,5 @@
+cmake-build-debug/
+input_files/
+output_files/
+.idea/
+*.txt
