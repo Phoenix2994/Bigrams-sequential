@@ -12,7 +12,7 @@ public:
 
     static bool computeLetters(char a, char *group, int &index);
 
-    static bool computeWords(char a, std::string *group, int &index);
+    static bool computeWords(char a, std::string *group, std::string &tmp_string, int &index);
 };
 
 #endif //GRAMS_COMPUTING_H

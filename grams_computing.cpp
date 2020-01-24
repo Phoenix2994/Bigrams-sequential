@@ -17,8 +17,8 @@ bool GramsComputing::computeLetters(char a, char *group, int &index) {
     return (index == NGRAM_LENGTH);
 }
 
-bool GramsComputing::computeWords(char a, std::string *group, int &index) {
-    std::string tmp_string;
+bool GramsComputing::computeWords(char a, std::string *group, std::string &tmp_string, int &index) {
+
     if (isalpha(a)) {
         if (isupper(a))
             a = tolower(a);

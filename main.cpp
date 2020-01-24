@@ -8,14 +8,15 @@
 
 using namespace std;
 
+
 int main(int argc, char *argv[]) {
     const char *kInputPath = argv[1];
     const char *kOutputPath = argv[2];
     ifstream input, size;
     ofstream output_words, output_letters;
-    string ngram[NGRAM_LENGTH], line, words_ngram;
-    int words_index, letters_index = 0;
-    char next_char, letters_ngram[NGRAM_LENGTH + 1] = "";
+    string ngram[NGRAM_LENGTH], tmp_string, line, words_ngram;
+    int words_index = 0, letters_index = 0;
+    char next_char, letters_ngram[NGRAM_LENGTH + 1];
     char *buffer;
     unordered_map<string, int> letters_hashtable, words_hashtable;
 
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < file_size; i++) {
         next_char = buffer[i];
         //words N-grams
-        if (GramsComputing::computeWords(next_char, ngram, words_index)) {
+        if (GramsComputing::computeWords(next_char, ngram, tmp_string, words_index)) {
             words_ngram = ngram[0] + " " + ngram[1];
             words_hashtable[words_ngram] += 1;
             if (!(isalpha(next_char) || isspace(next_char))) //check if it is a group terminator
@@ -57,9 +58,11 @@ int main(int argc, char *argv[]) {
     //end time
     double elapsed_time = omp_get_wtime() - start;
 
+
     /* PRINT RESULTS */
     output_words.open((string) kOutputPath + "output_words.txt", ios::binary);
     output_letters.open((string) kOutputPath + "output_letters.txt", ios::binary);
+
 
     for (auto map_iterator = words_hashtable.begin(); map_iterator != letters_hashtable.end(); ++map_iterator)
         output_words << map_iterator->first << " : " << map_iterator->second << endl;
